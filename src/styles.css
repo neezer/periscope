@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  padding: 16px 0 16px 16px;
+  border-left: 1px solid;
+}

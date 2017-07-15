@@ -1,0 +1,40 @@
+{
+  "members": {
+    "1": {
+      "name": "Evan Sherwood",
+      "email": "evan@sherwood.io"
+    }
+  },
+  "meetings": {
+    "fdda765f-fc57-5604-a269-52a7df8164ec": {
+      "inspirationLeader": {
+        "videoURL": "https://youtube.com/...",
+        "imageURL": ""
+      },
+      "attendees": {
+        "1": {
+          "updates": [
+            "Worked on thing 1",
+            "Thought about working on thing 2",
+            "Blocked by all the thinking I'm doing"
+          ],
+          "startedAt": "2012-04-23T18:25:43.511Z",
+          "endedAt": "2012-04-23T18:25:43.511Z"
+        }
+      },
+      "announcements": [
+        "Some announcement text goes here",
+        "And another announcement was added here"
+      ],
+      "connects": [
+        {
+          "wantsToConnect": "1",
+          "connectWith": "4",
+          "about": ""
+        }
+      ],
+      "startedAt": "2012-04-23T18:25:43.511Z",
+      "endedAt": "2012-04-23T18:25:43.511Z"
+    }
+  }
+}
