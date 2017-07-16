@@ -14,18 +14,44 @@ update msg model =
         ReceiveDate date ->
             ( { model | date = Just date }, Cmd.none )
 
-        UpdateYouTubeVideoId youTubeVideoId ->
+        UpdateVideo youTubeVideoId ->
             let
+                video =
+                    model.inspirationalVideo
+
+                newVideo =
+                    { video | id = Just youTubeVideoId, editing = True }
+
                 newModel =
-                    { model | youTubeVideoId = Just youTubeVideoId, editing = True }
+                    { model | inspirationalVideo = newVideo }
             in
                 ( newModel, Cmd.none )
 
-        LoadYouTubeVideo ->
-            ( { model | editing = False }, Cmd.none )
+        LoadVideo ->
+            let
+                video =
+                    model.inspirationalVideo
 
-        ClearYouTubeVideoId ->
-            ( { model | youTubeVideoId = Nothing }, Cmd.none )
+                newVideo =
+                    { video | editing = False }
+
+                newModel =
+                    { model | inspirationalVideo = newVideo }
+            in
+                ( newModel, Cmd.none )
+
+        ClearVideo ->
+            let
+                video =
+                    model.inspirationalVideo
+
+                newVideo =
+                    { video | id = Nothing }
+
+                newModel =
+                    { model | inspirationalVideo = newVideo }
+            in
+                ( newModel, Cmd.none )
 
         _ ->
             ( model, Cmd.none )
@@ -36,8 +62,11 @@ init =
     let
         initialModel =
             { date = Nothing
-            , youTubeVideoId = Nothing
-            , editing = False
+            , inspirationalVideo =
+                { id = Nothing
+                , editing = False
+                }
+            , announcements = []
             }
     in
         ( initialModel, getCurrentDate )

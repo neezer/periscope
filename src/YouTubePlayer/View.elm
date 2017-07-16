@@ -1,6 +1,6 @@
 module YouTubePlayer.View exposing (root)
 
-import Main.Types exposing (Model, Msg(..))
+import Main.Types exposing (Video, Msg(..))
 import Html
     exposing
         ( Html
@@ -41,26 +41,29 @@ makeElement =
     Bem.makeElement block
 
 
-root : Model -> Html Msg
-root model =
+root : Video -> Html Msg
+root video =
     div [ class block ]
-        [ player model
-        , urlInput model.youTubeVideoId
+        [ player video
+        , urlInput video.id
         ]
 
 
-player : Model -> Html Msg
-player model =
+player : Video -> Html Msg
+player video =
     let
-        youTubeVideoId =
-            model.youTubeVideoId
+        id =
+            video.id
+
+        isEditing =
+            video.editing
     in
-        case ( youTubeVideoId, model.editing ) of
-            ( Just youTubeVideoId, False ) ->
+        case ( id, isEditing ) of
+            ( Just id, False ) ->
                 iframe
                     [ width 584
                     , height 329
-                    , src <| "https://www.youtube.com/embed/" ++ youTubeVideoId
+                    , src <| "https://www.youtube.com/embed/" ++ id
                     , property "frameborder" <| Json.Encode.string "0"
                     , property "allowFullscreen" <| Json.Encode.string "true"
                     ]
@@ -78,14 +81,14 @@ urlInput youTubeVideoId =
             [ text "YouTube Video ID:" ]
         , input
             [ placeholder "Enter a YouTube video ID and hit <Enter>"
-            , onInput UpdateYouTubeVideoId
-            , onEnter LoadYouTubeVideo
+            , onInput UpdateVideo
+            , onEnter LoadVideo
             , class <| makeElement "url-input"
             , value <| getYouTubeVideoId youTubeVideoId
             ]
             []
         , button
-            [ onClick ClearYouTubeVideoId
+            [ onClick ClearVideo
             , class <| makeElement "url-input-clear"
             ]
             [ text "clear" ]

@@ -11,7 +11,7 @@ root : Model -> Html Msg
 root model =
     div []
         [ header model.date
-        , YouTubePlayer.View.root model
+        , YouTubePlayer.View.root model.inspirationalVideo
         ]
 
 
