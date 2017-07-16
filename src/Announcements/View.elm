@@ -1,6 +1,6 @@
 module Announcements.View exposing (root)
 
-import Html exposing (Html, h2, text, ul, li, div, button, textarea)
+import Html exposing (Html, h2, text, ul, li, div, button, textarea, span)
 import Html.Attributes exposing (class, id)
 import Html.Events exposing (onClick, onInput)
 import Bem
@@ -45,7 +45,7 @@ addButton =
         [ class <| makeElement "button"
         , onClick AddAnnouncement
         ]
-        [ text "Add" ]
+        [ text "add announcement" ]
 
 
 renderAnnouncements : List Announcement -> Html Msg
@@ -81,25 +81,29 @@ doneButton =
         [ class <| makeElement "button"
         , onClick FinishEditingAnnouncement
         ]
-        [ text "done" ]
+        [ text "done editing" ]
 
 
 renderAnnouncement : Announcement -> Html Msg
 renderAnnouncement announcement =
     li
-        [ class <| makeElement "announcement-wrapper"
-        , id <| "announcement-" ++ toString announcement.id
-        ]
+        [ class <| makeElement "announcement-wrapper" ]
         [ showAnnouncement announcement ]
 
 
 showAnnouncement : Announcement -> Html Msg
 showAnnouncement announcement =
-    if announcement.editing then
-        textarea
-            [ class <| makeElement "announcement-input"
-            , onInput <| UpdateAnnouncement announcement.id
-            ]
-            [ text announcement.text ]
-    else
-        text announcement.text
+    let
+        announcementId =
+            "announcement-" ++ toString announcement.id
+    in
+        if announcement.editing then
+            textarea
+                [ class <| makeElement "announcement-input"
+                , onInput <| UpdateAnnouncement announcement.id
+                , id <| announcementId
+                ]
+                [ text announcement.text ]
+        else
+            span [ id <| announcementId ]
+                [ text announcement.text ]
