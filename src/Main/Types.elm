@@ -1,4 +1,4 @@
-module Main.Types exposing (Model, Video, Msg(..))
+module Main.Types exposing (Model, Video, Announcement, Msg(..))
 
 import Date exposing (Date)
 import YouTubePlayer.Types exposing (YouTubeVideoId)
@@ -30,3 +30,4 @@ type Msg
     | UpdateVideo YouTubeVideoId
     | LoadVideo
     | ClearVideo
+    | AddAnnouncement

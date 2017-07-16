@@ -1,6 +1,6 @@
 module Main.State exposing (update, init)
 
-import Main.Types exposing (Model, Msg(..))
+import Main.Types exposing (Model, Announcement, Msg(..))
 import Date exposing (Date)
 import Task
 
@@ -50,6 +50,19 @@ update msg model =
 
                 newModel =
                     { model | inspirationalVideo = newVideo }
+            in
+                ( newModel, Cmd.none )
+
+        AddAnnouncement ->
+            let
+                newAnnouncement =
+                    Announcement "" True
+
+                announcements =
+                    model.announcements ++ [ newAnnouncement ]
+
+                newModel =
+                    { model | announcements = announcements }
             in
                 ( newModel, Cmd.none )
 

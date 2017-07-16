@@ -5,6 +5,7 @@ import Html exposing (Html, div, text, h1)
 import Date exposing (Date)
 import Date.Extra
 import YouTubePlayer.View
+import Announcements.View
 
 
 root : Model -> Html Msg
@@ -12,6 +13,7 @@ root model =
     div []
         [ header model.date
         , YouTubePlayer.View.root model.inspirationalVideo
+        , Announcements.View.root model.announcements
         ]
 
 
