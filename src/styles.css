@@ -2,6 +2,7 @@
 
   html
 , .announcements__announcement-list
+, .attendees__list
 {
   padding: 0;
 }
@@ -10,6 +11,8 @@
 , body
 , .announcements__make-new-title
 , .header__title
+, .attendees__name
+, .attendees__question-title
 {
   margin: 0;
 }
@@ -41,6 +44,18 @@
   padding: 16px 0;
 }
 
+  .announcements__announcement-list
+, .attendees__list
+{
+  list-style: none;
+}
+
+  .announcements__announcement-list > * + *
+, .attendees__list > * + *
+{
+  margin-top: 16px;
+}
+
 
 /* ------------------------------------------------------------------ general */
 
@@ -68,6 +83,7 @@
 {
   font-size: 16px;
   resize: none;
+  height: 28px;
 }
 
   iframe
@@ -102,16 +118,6 @@
   flex: 0 0 50px;
 }
 
-  .announcements__announcement-list
-{
-  list-style: none;
-}
-
-  .announcements__announcement-list > * + *
-{
-  margin-top: 16px;
-}
-
   .announcements__announcement-wrapper
 {
   background-color: #f8e187;
@@ -119,12 +125,34 @@
   line-height: 20px;
 }
 
-  .announcements__announcement-input
-{
-  height: 28px;
-}
-
   .announcements__announcement-button
 {
   flex: 0 0 35px;
+}
+
+  .attendees__avatar
+{
+  width: 75px;
+  height: 75px;
+}
+
+  .media
+{
+  display: flex;
+  align-items: flex-start;
+}
+
+  .media__figure
+{
+  margin-right: 16px;
+}
+
+  .media__body
+{
+  flex: 1;
+}
+
+  .attendees__github-username
+{
+  color: #95a5a6;
 }

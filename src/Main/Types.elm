@@ -3,7 +3,7 @@ module Main.Types
         ( Model
         , Video
         , Announcement
-        , Attendee
+        , Person
         , Msg(..)
         )
 
@@ -16,7 +16,7 @@ type alias Model =
     , uid : Int
     , inspirationalVideo : Video
     , announcements : List Announcement
-    , attendees : List Attendee
+    , attendees : List Person
     }
 
 
@@ -27,16 +27,17 @@ type alias Video =
 
 
 type alias Announcement =
-    { text : String
+    { id : Int
+    , text : String
     , editing : Bool
-    , id : Int
     }
 
 
-type alias Attendee =
+type alias Person =
     { id : Int
     , name : String
     , title : String
+    , gitHubUsername : String
     , avatarUrl : String
     }
 

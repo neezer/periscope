@@ -1,6 +1,6 @@
 module Main.State exposing (update, init)
 
-import Main.Types exposing (Model, Msg(..))
+import Main.Types exposing (Model, Announcement, Video, Person, Msg(..))
 import Date exposing (Date)
 import Task
 
@@ -59,10 +59,7 @@ update msg model =
                     model.uid + 1
 
                 newAnnouncement =
-                    { id = newUid
-                    , text = ""
-                    , editing = True
-                    }
+                    Announcement newUid "" True
 
                 oldAnnouncements =
                     model.announcements
@@ -114,12 +111,16 @@ init =
     let
         initialModel =
             { date = Nothing
-            , inspirationalVideo =
-                { id = Nothing
-                , editing = False
-                }
+            , inspirationalVideo = Video Nothing False
             , announcements = []
-            , attendees = []
+            , attendees =
+                [ evan
+                , bogdan
+                , tim
+                , joey
+                , blair
+                , roksolana
+                ]
             , uid = 0
             }
     in
@@ -129,3 +130,33 @@ init =
 getCurrentDate : Cmd Msg
 getCurrentDate =
     Task.perform ReceiveDate Date.now
+
+
+evan : Person
+evan =
+    Person 1 "Evan" "Team Lead" "neezer" "https://avatars6.githubusercontent.com/u/29997?v=4&s=460"
+
+
+tim : Person
+tim =
+    Person 2 "Tim" "Developer" "beardedtim" "https://avatars7.githubusercontent.com/u/8563579?v=4&s=460"
+
+
+joey : Person
+joey =
+    Person 3 "Joey" "Developer" "jgbenito7" "https://avatars5.githubusercontent.com/u/6375353?v=4&s=460"
+
+
+blair : Person
+blair =
+    Person 4 "Blair" "Developer" "zhaolwu" "https://avatars5.githubusercontent.com/u/29712873?v=4&s=460"
+
+
+bogdan : Person
+bogdan =
+    Person 5 "Bogdan" "Developer" "blobor" "https://avatars7.githubusercontent.com/u/4813007?v=4&s=460"
+
+
+roksolana : Person
+roksolana =
+    Person 6 "Roksolana" "Developer" "lianapache" "https://avatars4.githubusercontent.com/u/12541467?v=4&s=460"
