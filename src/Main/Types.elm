@@ -6,6 +6,7 @@ import YouTubePlayer.Types exposing (YouTubeVideoId)
 
 type alias Model =
     { date : Maybe Date
+    , uid : Int
     , inspirationalVideo : Video
     , announcements : List Announcement
     }
@@ -20,6 +21,7 @@ type alias Video =
 type alias Announcement =
     { text : String
     , editing : Bool
+    , id : Int
     }
 
 
@@ -31,3 +33,5 @@ type Msg
     | LoadVideo
     | ClearVideo
     | AddAnnouncement
+    | FinishEditingAnnouncement
+    | UpdateAnnouncement Int String

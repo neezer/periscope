@@ -1,6 +1,6 @@
 module Main.State exposing (update, init)
 
-import Main.Types exposing (Model, Announcement, Msg(..))
+import Main.Types exposing (Model, Msg(..))
 import Date exposing (Date)
 import Task
 
@@ -55,14 +55,53 @@ update msg model =
 
         AddAnnouncement ->
             let
-                newAnnouncement =
-                    Announcement "" True
+                newUid =
+                    model.uid + 1
 
-                announcements =
-                    model.announcements ++ [ newAnnouncement ]
+                newAnnouncement =
+                    { id = newUid
+                    , text = ""
+                    , editing = True
+                    }
+
+                oldAnnouncements =
+                    model.announcements
+                        |> List.filter (\m -> not <| String.isEmpty m.text)
+                        |> List.map (\m -> { m | editing = False })
+
+                newAnnouncements =
+                    oldAnnouncements ++ [ newAnnouncement ]
 
                 newModel =
-                    { model | announcements = announcements }
+                    { model | announcements = newAnnouncements, uid = newUid }
+            in
+                ( newModel, Cmd.none )
+
+        FinishEditingAnnouncement ->
+            let
+                newAnnouncements =
+                    model.announcements
+                        |> List.filter (\m -> not <| String.isEmpty m.text)
+                        |> List.map (\m -> { m | editing = False })
+
+                newModel =
+                    { model | announcements = newAnnouncements }
+            in
+                ( newModel, Cmd.none )
+
+        UpdateAnnouncement id text ->
+            let
+                updateAnnouncement a =
+                    if a.id == id then
+                        { a | text = text }
+                    else
+                        a
+
+                newAnnouncements =
+                    List.map updateAnnouncement model.announcements
+
+                newModel =
+                    { model | announcements = newAnnouncements }
             in
                 ( newModel, Cmd.none )
 
@@ -80,6 +119,7 @@ init =
                 , editing = False
                 }
             , announcements = []
+            , uid = 0
             }
     in
         ( initialModel, getCurrentDate )

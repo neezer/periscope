@@ -61,8 +61,8 @@ player video =
         case ( id, isEditing ) of
             ( Just id, False ) ->
                 iframe
-                    [ width 584
-                    , height 329
+                    [ width 631
+                    , height 355
                     , src <| "https://www.youtube.com/embed/" ++ id
                     , property "frameborder" <| Json.Encode.string "0"
                     , property "allowFullscreen" <| Json.Encode.string "true"
