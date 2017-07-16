@@ -1,4 +1,11 @@
-module Main.Types exposing (Model, Video, Announcement, Msg(..))
+module Main.Types
+    exposing
+        ( Model
+        , Video
+        , Announcement
+        , Attendee
+        , Msg(..)
+        )
 
 import Date exposing (Date)
 import YouTubePlayer.Types exposing (YouTubeVideoId)
@@ -9,6 +16,7 @@ type alias Model =
     , uid : Int
     , inspirationalVideo : Video
     , announcements : List Announcement
+    , attendees : List Attendee
     }
 
 
@@ -22,6 +30,14 @@ type alias Announcement =
     { text : String
     , editing : Bool
     , id : Int
+    }
+
+
+type alias Attendee =
+    { id : Int
+    , name : String
+    , title : String
+    , avatarUrl : String
     }
 
 

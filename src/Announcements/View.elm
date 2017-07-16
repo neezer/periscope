@@ -6,6 +6,7 @@ import Html.Events exposing (onClick, onInput)
 import Bem
 import Bem.Types
 import Main.Types exposing (Announcement, Msg(..))
+import Extra exposing (onEnter)
 
 
 block : Bem.Types.Block
@@ -101,6 +102,7 @@ showAnnouncement announcement =
             textarea
                 [ class <| makeElement "announcement-input"
                 , onInput <| UpdateAnnouncement announcement.id
+                , onEnter FinishEditingAnnouncement
                 , id <| announcementId
                 ]
                 [ text announcement.text ]

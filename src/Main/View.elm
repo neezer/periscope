@@ -1,34 +1,26 @@
 module Main.View exposing (root)
 
-import Main.Types exposing (Model, Msg(..))
-import Html exposing (Html, div, text, h1)
-import Date exposing (Date)
-import Date.Extra
+import Main.Types exposing (Model, Msg)
+import Html exposing (Html, div)
+import Html.Attributes exposing (class)
 import YouTubePlayer.View
 import Announcements.View
+import Attendees.View
+import Header.View
+import Bem
+import Bem.Types
+
+
+block : Bem.Types.Block
+block =
+    Bem.makeBlock "wrapper"
 
 
 root : Model -> Html Msg
 root model =
-    div []
-        [ header model.date
+    div [ class block ]
+        [ Header.View.root model.date
         , YouTubePlayer.View.root model.inspirationalVideo
         , Announcements.View.root model.announcements
+        , Attendees.View.root model.attendees
         ]
-
-
-header : Maybe Date -> Html Msg
-header date =
-    h1 []
-        [ text ("Stand-up for " ++ (getFormattedDate date))
-        ]
-
-
-getFormattedDate : Maybe Date -> String
-getFormattedDate date =
-    case date of
-        Just d ->
-            Date.Extra.toFormattedString "EEEE MMMM d, y" d
-
-        Nothing ->
-            ""

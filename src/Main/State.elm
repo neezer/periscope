@@ -119,6 +119,7 @@ init =
                 , editing = False
                 }
             , announcements = []
+            , attendees = []
             , uid = 0
             }
     in

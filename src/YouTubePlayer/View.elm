@@ -15,7 +15,7 @@ import Html
 import Bem
 import Bem.Types
 import YouTubePlayer.Types exposing (YouTubeVideoId)
-import Html.Events exposing (on, keyCode, onInput, onClick)
+import Html.Events exposing (onInput, onClick)
 import Html.Attributes
     exposing
         ( class
@@ -26,8 +26,8 @@ import Html.Attributes
         , property
         , value
         )
+import Extra exposing (onEnter)
 import Json.Encode
-import Json.Decode
 
 
 block : Bem.Types.Block
@@ -93,18 +93,6 @@ urlInput youTubeVideoId =
             ]
             [ text "clear" ]
         ]
-
-
-onEnter : Msg -> Attribute Msg
-onEnter msg =
-    let
-        isEnter code =
-            if code == 13 then
-                Json.Decode.succeed msg
-            else
-                Json.Decode.fail "not ENTER"
-    in
-        on "keydown" <| Json.Decode.andThen isEnter keyCode
 
 
 getYouTubeVideoId : Maybe YouTubeVideoId -> String

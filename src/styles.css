@@ -1,4 +1,4 @@
-/* groupings */
+/* ---------------------------------------------------------------- groupings */
 
   html
 , .announcements__announcement-list
@@ -9,6 +9,7 @@
   html
 , body
 , .announcements__make-new-title
+, .header__title
 {
   margin: 0;
 }
@@ -34,7 +35,14 @@
   flex: 1 auto;
 }
 
-/* general */
+  .announcements__make-new-wrapper
+, .header
+{
+  padding: 16px 0;
+}
+
+
+/* ------------------------------------------------------------------ general */
 
   *
 {
@@ -67,7 +75,22 @@
   border: 0;
 }
 
-/* blocks */
+
+/* ------------------------------------------------------------------- blocks */
+
+  .wrapper > * + *
+{
+  border-top: 1px solid whitesmoke;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+  .header
+{
+  position: sticky;
+  top: 0px;
+  background-color: white;
+}
 
   .youtube-inspiration__url-input-label
 {
@@ -104,9 +127,4 @@
   .announcements__announcement-button
 {
   flex: 0 0 35px;
-}
-
-  .announcements__make-new-wrapper
-{
-  padding: 16px 0;
 }
