@@ -1,5 +1,9 @@
-module YouTubePlayer.Types exposing (YouTubeUrl)
+module YouTubePlayer.Types exposing (..)
 
 
-type alias YouTubeUrl =
+type alias YouTubeVideoId =
+    String
+
+
+type alias BEMBlockName =
     String

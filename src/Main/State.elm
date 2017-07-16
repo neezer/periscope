@@ -14,15 +14,18 @@ update msg model =
         ReceiveDate date ->
             ( { model | date = Just date }, Cmd.none )
 
-        UpdateYouTubeUrl youTubeUrl ->
+        UpdateYouTubeVideoId youTubeVideoId ->
             let
                 newModel =
-                    { model | youTubeUrl = Just youTubeUrl, editing = True }
+                    { model | youTubeVideoId = Just youTubeVideoId, editing = True }
             in
                 ( newModel, Cmd.none )
 
-        LoadYouTubeUrl ->
+        LoadYouTubeVideo ->
             ( { model | editing = False }, Cmd.none )
+
+        ClearYouTubeVideoId ->
+            ( { model | youTubeVideoId = Nothing }, Cmd.none )
 
         _ ->
             ( model, Cmd.none )
@@ -33,7 +36,7 @@ init =
     let
         initialModel =
             { date = Nothing
-            , youTubeUrl = Nothing
+            , youTubeVideoId = Nothing
             , editing = False
             }
     in

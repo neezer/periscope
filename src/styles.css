@@ -13,16 +13,32 @@ body {
   margin-right: auto;
   width: 600px;
   padding: 16px 0 16px 16px;
-  border-left: 1px solid #3498db;
+  border-left: 3px solid #3498db;
 }
 
 input {
   padding: 8px;
-  width: 100%;
+}
+
+iframe {
+  border: 0;
 }
 
 /* blocks */
 
-.youtube-inspiration {
-  border: 0;
+.youtube-inspiration__url-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.youtube-inspiration__url-input-label {
+  flex: 0 0 125px;
+}
+
+.youtube-inspiration__url-input {
+  flex: 1 auto;
+}
+
+.youtube-inspiration__url-input-clear {
+  flex: 0 0 50px;
 }
