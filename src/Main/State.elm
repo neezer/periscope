@@ -1,6 +1,15 @@
 module Main.State exposing (update, init)
 
-import Main.Types exposing (Model, Announcement, Video, Person, Msg(..))
+import Main.Types
+    exposing
+        ( Model
+        , Attendee
+        , Announcement
+        , Video
+        , Person
+        , Question(..)
+        , Msg(..)
+        )
 import Date exposing (Date)
 import Task
 
@@ -102,6 +111,33 @@ update msg model =
             in
                 ( newModel, Cmd.none )
 
+        UpdateQuestion question personId text ->
+            let
+                updateAttendee attendee =
+                    if attendee.person.id == personId then
+                        case question of
+                            WhatDidIDoYesterday ->
+                                { attendee | didYesterday = text }
+
+                            WhatWillIDoToday ->
+                                { attendee | willDoToday = text }
+
+                            WhatIsBlockingMe ->
+                                { attendee | blockers = text }
+
+                            CanIConnectWith ->
+                                { attendee | connects = text }
+                    else
+                        attendee
+
+                newAttendees =
+                    List.map updateAttendee model.attendees
+
+                newModel =
+                    { model | attendees = newAttendees }
+            in
+                ( newModel, Cmd.none )
+
         _ ->
             ( model, Cmd.none )
 
@@ -114,12 +150,12 @@ init =
             , inspirationalVideo = Video Nothing False
             , announcements = []
             , attendees =
-                [ evan
-                , bogdan
-                , tim
-                , joey
-                , blair
-                , roksolana
+                [ Attendee evan "" "" "" ""
+                , Attendee bogdan "" "" "" ""
+                , Attendee tim "" "" "" ""
+                , Attendee joey "" "" "" ""
+                , Attendee blair "" "" "" ""
+                , Attendee roksolana "" "" "" ""
                 ]
             , uid = 0
             }

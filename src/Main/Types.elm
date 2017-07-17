@@ -2,8 +2,10 @@ module Main.Types
     exposing
         ( Model
         , Video
+        , Attendee
         , Announcement
         , Person
+        , Question(..)
         , Msg(..)
         )
 
@@ -11,12 +13,16 @@ import Date exposing (Date)
 import YouTubePlayer.Types exposing (YouTubeVideoId)
 
 
+type alias PersonId =
+    Int
+
+
 type alias Model =
     { date : Maybe Date
     , uid : Int
     , inspirationalVideo : Video
     , announcements : List Announcement
-    , attendees : List Person
+    , attendees : List Attendee
     }
 
 
@@ -34,12 +40,28 @@ type alias Announcement =
 
 
 type alias Person =
-    { id : Int
+    { id : PersonId
     , name : String
     , title : String
     , gitHubUsername : String
     , avatarUrl : String
     }
+
+
+type alias Attendee =
+    { person : Person
+    , didYesterday : String
+    , willDoToday : String
+    , blockers : String
+    , connects : String
+    }
+
+
+type Question
+    = WhatDidIDoYesterday
+    | WhatWillIDoToday
+    | WhatIsBlockingMe
+    | CanIConnectWith
 
 
 type Msg
@@ -52,3 +74,4 @@ type Msg
     | AddAnnouncement
     | FinishEditingAnnouncement
     | UpdateAnnouncement Int String
+    | UpdateQuestion Question PersonId String

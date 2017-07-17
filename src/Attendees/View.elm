@@ -16,11 +16,11 @@ import Html
         , span
         )
 import Html.Attributes exposing (class, classList, placeholder, src)
-import Main.Types exposing (Person, Msg)
+import Html.Events exposing (onInput)
+import Main.Types exposing (Attendee, Question(..), Msg(..))
 import Bem
 import Bem.Types
 import Bem.Common
-import Attendees.Types exposing (Question(..))
 
 
 block : Bem.Types.Block
@@ -34,7 +34,7 @@ makeElement =
     Bem.makeElement block
 
 
-root : List Person -> Html Msg
+root : List Attendee -> Html Msg
 root attendees =
     div [ class block ]
         [ header
@@ -54,7 +54,7 @@ header =
         ]
 
 
-renderAttendees : List Person -> Html Msg
+renderAttendees : List Attendee -> Html Msg
 renderAttendees attendees =
     if List.isEmpty attendees then
         text ""
@@ -65,8 +65,8 @@ renderAttendees attendees =
             List.map renderAttendee attendees
 
 
-renderAttendee : Person -> Html Msg
-renderAttendee person =
+renderAttendee : Attendee -> Html Msg
+renderAttendee attendee =
     li
         [ classList
             [ ( makeElement "attendee-wrapper", True )
@@ -85,12 +85,12 @@ renderAttendee person =
                     [ ( makeElement "avatar", True )
                     , ( Bem.Common.mediaFigure, True )
                     ]
-                , src person.avatarUrl
+                , src attendee.person.avatarUrl
                 ]
                 []
             , div [ class Bem.Common.mediaBody ]
-                [ h3 [ class <| makeElement "name" ] [ text person.name ]
-                , gitHubUsername person.gitHubUsername
+                [ h3 [ class <| makeElement "name" ] [ text attendee.person.name ]
+                , gitHubUsername attendee.person.gitHubUsername
                 ]
             ]
         , div
@@ -99,10 +99,10 @@ renderAttendee person =
                 , ( makeElement "questions", True )
                 ]
             ]
-            [ questionAnswer WhatDidIDoYesterday person
-            , questionAnswer WhatWillIDoToday person
-            , questionAnswer WhatIsBlockingMe person
-            , questionAnswer CanIConnectWith person
+            [ questionAnswer WhatDidIDoYesterday attendee
+            , questionAnswer WhatWillIDoToday attendee
+            , questionAnswer WhatIsBlockingMe attendee
+            , questionAnswer CanIConnectWith attendee
             ]
         ]
 
@@ -114,8 +114,8 @@ gitHubUsername username =
         [ text <| "@" ++ username ]
 
 
-questionAnswer : Question -> Person -> Html Msg
-questionAnswer question person =
+questionAnswer : Question -> Attendee -> Html Msg
+questionAnswer question attendee =
     let
         element =
             makeElement "question-answer"
@@ -132,7 +132,11 @@ questionAnswer question person =
             [ h4
                 [ class <| makeElement "question-title" ]
                 [ text title ]
-            , textarea [ class <| makeElement "question-input" ] []
+            , textarea
+                [ class <| makeElement "question-input"
+                , onInput <| UpdateQuestion question attendee.person.id
+                ]
+                []
             ]
 
 
