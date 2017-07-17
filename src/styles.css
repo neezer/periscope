@@ -10,9 +10,11 @@
   html
 , body
 , .announcements__make-new-title
+, .announcements__header
 , .header__title
 , .attendees__name
 , .attendees__question-title
+, .attendees__title
 {
   margin: 0;
 }
@@ -20,12 +22,15 @@
   .youtube-inspiration__url-input-wrapper
 , .announcements__announcement-wrapper
 , .announcements__make-new-wrapper
+, .announcements__header
+, .attendees__header
 {
   display: flex;
   justify-content: space-between;
 }
 
   input
+, textarea
 , .announcements__announcement-wrapper
 {
   padding: 8px;
@@ -39,7 +44,9 @@
 }
 
   .announcements__make-new-wrapper
+, .announcements__header
 , .header
+, .attendees__header
 {
   padding: 16px 0;
 }
@@ -48,12 +55,6 @@
 , .attendees__list
 {
   list-style: none;
-}
-
-  .announcements__announcement-list > * + *
-, .attendees__list > * + *
-{
-  margin-top: 16px;
 }
 
 
@@ -83,12 +84,17 @@
 {
   font-size: 16px;
   resize: none;
-  height: 28px;
 }
 
   iframe
 {
   border: 0;
+}
+
+  input
+, textarea
+{
+  border: 1px solid #eee;
 }
 
 
@@ -155,4 +161,51 @@
   .attendees__github-username
 {
   color: #95a5a6;
+}
+
+  .attendees__attendee-info
+{
+  flex-basis: 200px;
+}
+
+  .attendees__question-input
+{
+  width: 100%;
+}
+
+  .attendees__question-answer
+{
+  border-left-width: 6px;
+  border-left-style: solid;
+  padding-left: 16px;
+}
+
+  .attendees__question-answer--did-yesterday
+{
+  border-left-color: #2ecc71;
+}
+
+  .attendees__question-answer--will-do-today
+{
+  border-left-color: #f1c40f;
+}
+
+  .attendees__question-answer--blocking-me
+{
+  border-left-color: #e74c3c;
+}
+
+  .attendees__question-answer--connect-with
+{
+  border-left-color: #9b59b6;
+}
+
+  .attendees__list > * + *
+{
+  margin-top: 32px;
+}
+
+  .announcements__announcement-list > * + *
+{
+  margin-top: 16px;
 }

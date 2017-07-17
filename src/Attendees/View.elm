@@ -37,15 +37,21 @@ makeElement =
 root : List Person -> Html Msg
 root attendees =
     div [ class block ]
-        [ h2 [ class <| makeElement "title" ] [ text "Attendees" ]
-        , addAttendee
+        [ header
         , renderAttendees attendees
         ]
 
 
-addAttendee : Html Msg
-addAttendee =
-    input [ placeholder "Add attendee" ] []
+header : Html Msg
+header =
+    div [ class <| makeElement "header" ]
+        [ h2 [ class <| makeElement "title" ] [ text "Attendees" ]
+        , input
+            [ class <| makeElement "add-attendee-input"
+            , placeholder "Add attendee"
+            ]
+            []
+        ]
 
 
 renderAttendees : List Person -> Html Msg
@@ -61,8 +67,19 @@ renderAttendees attendees =
 
 renderAttendee : Person -> Html Msg
 renderAttendee person =
-    li [ class <| makeElement "attendee-wrapper" ]
-        [ div [ class Bem.Common.media ]
+    li
+        [ classList
+            [ ( makeElement "attendee-wrapper", True )
+            , ( Bem.Common.media, True )
+            ]
+        ]
+        [ div
+            [ classList
+                [ ( Bem.Common.media, True )
+                , ( Bem.Common.mediaFigure, True )
+                , ( makeElement "attendee-info", True )
+                ]
+            ]
             [ img
                 [ classList
                     [ ( makeElement "avatar", True )
@@ -76,10 +93,17 @@ renderAttendee person =
                 , gitHubUsername person.gitHubUsername
                 ]
             ]
-        , questionAnswer WhatDidIDoYesterday person
-        , questionAnswer WhatWillIDoToday person
-        , questionAnswer WhatIsBlockingMe person
-        , questionAnswer CanIConnectWith person
+        , div
+            [ classList
+                [ ( Bem.Common.mediaBody, True )
+                , ( makeElement "questions", True )
+                ]
+            ]
+            [ questionAnswer WhatDidIDoYesterday person
+            , questionAnswer WhatWillIDoToday person
+            , questionAnswer WhatIsBlockingMe person
+            , questionAnswer CanIConnectWith person
+            ]
         ]
 
 
@@ -103,17 +127,12 @@ questionAnswer question person =
             [ classList
                 [ ( element, True )
                 , ( modifier, True )
-                , ( Bem.Common.media, True )
                 ]
             ]
             [ h4
-                [ classList
-                    [ ( Bem.Common.mediaFigure, True )
-                    , ( makeElement "question-title", True )
-                    ]
-                ]
+                [ class <| makeElement "question-title" ]
                 [ text title ]
-            , textarea [ class Bem.Common.mediaBody ] []
+            , textarea [ class <| makeElement "question-input" ] []
             ]
 
 

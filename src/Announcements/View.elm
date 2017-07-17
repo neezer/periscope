@@ -22,13 +22,13 @@ makeElement =
 root : List Announcement -> Html Msg
 root announcements =
     div [ class block ]
-        [ renderAnnouncements announcements
-        , noAnnouncements announcements
+        [ header announcements
+        , renderAnnouncements announcements
         ]
 
 
-noAnnouncements : List Announcement -> Html Msg
-noAnnouncements announcements =
+header : List Announcement -> Html Msg
+header announcements =
     if List.isEmpty announcements then
         div [ class <| makeElement "make-new-wrapper" ]
             [ h2
@@ -37,7 +37,9 @@ noAnnouncements announcements =
             , addButton
             ]
     else
-        text ""
+        h2
+            [ class <| makeElement "header" ]
+            [ text "Announcements" ]
 
 
 addButton : Html Msg
