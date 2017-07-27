@@ -5,7 +5,8 @@ import Html.Attributes exposing (class, id)
 import Html.Events exposing (onClick, onInput)
 import Bem
 import Bem.Types
-import Main.Types exposing (Announcement, Msg(..))
+import Main.Types exposing (Announcement)
+import Main.Messages exposing (Msg(..))
 import Extra exposing (onEnter)
 
 
@@ -34,7 +35,7 @@ header announcements =
             [ h2
                 [ class <| makeElement "make-new-title" ]
                 [ text "No announcements" ]
-            , addButton
+            , addButton <| List.isEmpty announcements
             ]
     else
         h2
@@ -42,13 +43,20 @@ header announcements =
             [ text "Announcements" ]
 
 
-addButton : Html Msg
-addButton =
-    button
-        [ class <| makeElement "button"
-        , onClick AddAnnouncement
-        ]
-        [ text "add announcement" ]
+addButton : Bool -> Html Msg
+addButton noAnnouncements =
+    let
+        buttonText =
+            if noAnnouncements then
+                "add one"
+            else
+                "add another"
+    in
+        button
+            [ class <| makeElement "button"
+            , onClick AddAnnouncement
+            ]
+            [ text buttonText ]
 
 
 renderAnnouncements : List Announcement -> Html Msg
@@ -64,7 +72,7 @@ renderAnnouncements announcements =
             if isEditing then
                 doneButton
             else
-                addButton
+                addButton <| List.isEmpty announcements
     in
         if List.isEmpty announcements then
             text ""
@@ -84,7 +92,7 @@ doneButton =
         [ class <| makeElement "button"
         , onClick FinishEditingAnnouncement
         ]
-        [ text "done editing" ]
+        [ text "done" ]
 
 
 renderAnnouncement : Announcement -> Html Msg

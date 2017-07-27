@@ -5,12 +5,13 @@ import Main.Types
         ( Model
         , Attendee
         , Announcement
-        , Video
         , Person
         , Question(..)
-        , Msg(..)
         )
 import Date exposing (Date)
+import Main.Messages exposing (Msg(..))
+import Video.Update
+import Video.Model as Video
 import Task
 
 
@@ -23,44 +24,15 @@ update msg model =
         ReceiveDate date ->
             ( { model | date = Just date }, Cmd.none )
 
-        UpdateVideo youTubeVideoId ->
+        VideoMsg subMsg ->
             let
-                video =
-                    model.inspirationalVideo
-
-                newVideo =
-                    { video | id = Just youTubeVideoId, editing = True }
+                ( newVideoModel, cmd ) =
+                    Video.Update.update subMsg model.inspirationalVideo
 
                 newModel =
-                    { model | inspirationalVideo = newVideo }
+                    { model | inspirationalVideo = newVideoModel }
             in
-                ( newModel, Cmd.none )
-
-        LoadVideo ->
-            let
-                video =
-                    model.inspirationalVideo
-
-                newVideo =
-                    { video | editing = False }
-
-                newModel =
-                    { model | inspirationalVideo = newVideo }
-            in
-                ( newModel, Cmd.none )
-
-        ClearVideo ->
-            let
-                video =
-                    model.inspirationalVideo
-
-                newVideo =
-                    { video | id = Nothing }
-
-                newModel =
-                    { model | inspirationalVideo = newVideo }
-            in
-                ( newModel, Cmd.none )
+                ( newModel, Cmd.map VideoMsg cmd )
 
         AddAnnouncement ->
             let
@@ -147,7 +119,7 @@ init =
     let
         initialModel =
             { date = Nothing
-            , inspirationalVideo = Video Nothing False
+            , inspirationalVideo = Video.Model Nothing False
             , announcements = []
             , attendees =
                 [ Attendee evan "" "" "" ""

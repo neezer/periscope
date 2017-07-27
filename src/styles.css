@@ -57,6 +57,12 @@
   list-style: none;
 }
 
+  .attendees__question-input
+, .end-stand-up__button
+{
+  width: 100%;
+}
+
 
 /* ------------------------------------------------------------------ general */
 
@@ -67,6 +73,7 @@
 
   html
 , body
+, .end-stand-up__button
 {
   font: 400 16px/32px Fresca, serif;
 }
@@ -168,11 +175,6 @@
   flex-basis: 200px;
 }
 
-  .attendees__question-input
-{
-  width: 100%;
-}
-
   .attendees__question-answer
 {
   border-left-width: 6px;
@@ -208,4 +210,15 @@
   .announcements__announcement-list > * + *
 {
   margin-top: 16px;
+}
+
+  .end-stand-up__button
+{
+  padding: 32px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #3498db;
+  cursor: pointer;
+  color: white;
+  font-size: 32px;
 }

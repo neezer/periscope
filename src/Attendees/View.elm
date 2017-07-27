@@ -17,7 +17,8 @@ import Html
         )
 import Html.Attributes exposing (class, classList, placeholder, src)
 import Html.Events exposing (onInput)
-import Main.Types exposing (Attendee, Question(..), Msg(..))
+import Main.Types exposing (Attendee, Question(..))
+import Main.Messages exposing (Msg(..))
 import Bem
 import Bem.Types
 import Bem.Common

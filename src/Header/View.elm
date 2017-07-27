@@ -2,7 +2,7 @@ module Header.View exposing (root)
 
 import Html exposing (Html, div, h1, text)
 import Html.Attributes exposing (class)
-import Main.Types exposing (Msg)
+import Main.Messages exposing (Msg)
 import Date exposing (Date)
 import Date.Extra
 import Bem

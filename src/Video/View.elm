@@ -1,6 +1,7 @@
-module YouTubePlayer.View exposing (root)
+module Video.View exposing (root)
 
-import Main.Types exposing (Video, Msg(..))
+import Video.Messages exposing (Msg)
+import Video.Model as Video
 import Html
     exposing
         ( Html
@@ -14,7 +15,6 @@ import Html
         )
 import Bem
 import Bem.Types
-import YouTubePlayer.Types exposing (YouTubeVideoId)
 import Html.Events exposing (onInput, onClick)
 import Html.Attributes
     exposing
@@ -41,7 +41,7 @@ makeElement =
     Bem.makeElement block
 
 
-root : Video -> Html Msg
+root : Video.Model -> Html Msg
 root video =
     div [ class block ]
         [ player video
@@ -49,7 +49,7 @@ root video =
         ]
 
 
-player : Video -> Html Msg
+player : Video.Model -> Html Msg
 player video =
     let
         id =
@@ -73,7 +73,7 @@ player video =
                 text ""
 
 
-urlInput : Maybe YouTubeVideoId -> Html Msg
+urlInput : Maybe Video.YouTubeVideoId -> Html Msg
 urlInput youTubeVideoId =
     div [ class <| makeElement "url-input-wrapper" ]
         [ span
@@ -81,21 +81,21 @@ urlInput youTubeVideoId =
             [ text "YouTube Video ID:" ]
         , input
             [ placeholder "Enter a YouTube video ID and hit <Enter>"
-            , onInput UpdateVideo
-            , onEnter LoadVideo
+            , onInput Video.Messages.Update
+            , onEnter Video.Messages.Load
             , class <| makeElement "url-input"
             , value <| getYouTubeVideoId youTubeVideoId
             ]
             []
         , button
-            [ onClick ClearVideo
+            [ onClick Video.Messages.Clear
             , class <| makeElement "url-input-clear"
             ]
             [ text "clear" ]
         ]
 
 
-getYouTubeVideoId : Maybe YouTubeVideoId -> String
+getYouTubeVideoId : Maybe Video.YouTubeVideoId -> String
 getYouTubeVideoId youTubeVideoId =
     case youTubeVideoId of
         Just id ->

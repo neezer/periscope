@@ -1,12 +1,12 @@
 module Extra exposing (onEnter)
 
-import Main.Types exposing (Msg)
+import Main.Messages exposing (Msg)
 import Html exposing (Html, Attribute)
 import Html.Events exposing (keyCode, on)
 import Json.Decode
 
 
-onEnter : Msg -> Attribute Msg
+onEnter : msg -> Attribute msg
 onEnter msg =
     let
         isEnter code =

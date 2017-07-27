@@ -1,16 +1,15 @@
 module Main.Types
     exposing
         ( Model
-        , Video
         , Attendee
         , Announcement
         , Person
         , Question(..)
-        , Msg(..)
+        , PersonId
         )
 
 import Date exposing (Date)
-import YouTubePlayer.Types exposing (YouTubeVideoId)
+import Video.Model as Video
 
 
 type alias PersonId =
@@ -20,15 +19,9 @@ type alias PersonId =
 type alias Model =
     { date : Maybe Date
     , uid : Int
-    , inspirationalVideo : Video
+    , inspirationalVideo : Video.Model
     , announcements : List Announcement
     , attendees : List Attendee
-    }
-
-
-type alias Video =
-    { id : Maybe YouTubeVideoId
-    , editing : Bool
     }
 
 
@@ -62,16 +55,3 @@ type Question
     | WhatWillIDoToday
     | WhatIsBlockingMe
     | CanIConnectWith
-
-
-type Msg
-    = NoOp
-    | RequestDate
-    | ReceiveDate Date
-    | UpdateVideo YouTubeVideoId
-    | LoadVideo
-    | ClearVideo
-    | AddAnnouncement
-    | FinishEditingAnnouncement
-    | UpdateAnnouncement Int String
-    | UpdateQuestion Question PersonId String
