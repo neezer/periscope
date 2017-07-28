@@ -4,7 +4,6 @@ import Main.Types
     exposing
         ( Model
         , Attendee
-        , Announcement
         , Person
         , Question(..)
         )
@@ -12,6 +11,7 @@ import Main.Messages exposing (Msg(..))
 import Video.Update
 import Header.Update
 import Video.Model as Video
+import List
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -36,55 +36,6 @@ update msg model =
                     { model | inspirationalVideo = newVideoModel }
             in
                 ( newModel, Cmd.map VideoMsg cmd )
-
-        AddAnnouncement ->
-            let
-                newUid =
-                    model.uid + 1
-
-                newAnnouncement =
-                    Announcement newUid "" True
-
-                oldAnnouncements =
-                    model.announcements
-                        |> List.filter (\m -> not <| String.isEmpty m.text)
-                        |> List.map (\m -> { m | editing = False })
-
-                newAnnouncements =
-                    oldAnnouncements ++ [ newAnnouncement ]
-
-                newModel =
-                    { model | announcements = newAnnouncements, uid = newUid }
-            in
-                ( newModel, Cmd.none )
-
-        FinishEditingAnnouncement ->
-            let
-                newAnnouncements =
-                    model.announcements
-                        |> List.filter (\m -> not <| String.isEmpty m.text)
-                        |> List.map (\m -> { m | editing = False })
-
-                newModel =
-                    { model | announcements = newAnnouncements }
-            in
-                ( newModel, Cmd.none )
-
-        UpdateAnnouncement id text ->
-            let
-                updateAnnouncement a =
-                    if a.id == id then
-                        { a | text = text }
-                    else
-                        a
-
-                newAnnouncements =
-                    List.map updateAnnouncement model.announcements
-
-                newModel =
-                    { model | announcements = newAnnouncements }
-            in
-                ( newModel, Cmd.none )
 
         UpdateQuestion question personId text ->
             let

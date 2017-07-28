@@ -2,7 +2,6 @@ module Main.Types
     exposing
         ( Model
         , Attendee
-        , Announcement
         , Person
         , Question(..)
         , PersonId
@@ -10,6 +9,7 @@ module Main.Types
 
 import Video.Model as Video
 import Header.Model as Header
+import Announcements.Model as Announcements
 
 
 type alias PersonId =
@@ -20,15 +20,8 @@ type alias Model =
     { date : Header.Model
     , uid : Int
     , inspirationalVideo : Video.Model
-    , announcements : List Announcement
+    , announcements : List Announcements.Announcement
     , attendees : List Attendee
-    }
-
-
-type alias Announcement =
-    { id : Int
-    , text : String
-    , editing : Bool
     }
 
 

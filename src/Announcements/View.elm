@@ -3,8 +3,8 @@ module Announcements.View exposing (root)
 import Html exposing (Html, h2, text, ul, li, div, button, textarea, span)
 import Html.Attributes exposing (class, id)
 import Html.Events exposing (onClick, onInput)
-import Main.Types exposing (Announcement)
-import Main.Messages exposing (Msg(..))
+import Announcements.Model exposing (Announcement)
+import Announcements.Messages exposing (Msg(..))
 import Extra exposing (onEnter)
 
 
@@ -42,7 +42,7 @@ addButton noAnnouncements =
     in
         button
             [ class "announcements__button"
-            , onClick AddAnnouncement
+            , onClick Add
             ]
             [ text buttonText ]
 
@@ -78,7 +78,7 @@ doneButton : Html Msg
 doneButton =
     button
         [ class "announcements__button"
-        , onClick FinishEditingAnnouncement
+        , onClick FinishEditing
         ]
         [ text "done" ]
 
@@ -99,8 +99,8 @@ showAnnouncement announcement =
         if announcement.editing then
             textarea
                 [ class "announcements__announcement-input"
-                , onInput <| UpdateAnnouncement announcement.id
-                , onEnter FinishEditingAnnouncement
+                , onInput <| Update announcement.id
+                , onEnter FinishEditing
                 , id <| announcementId
                 ]
                 [ text announcement.text ]
