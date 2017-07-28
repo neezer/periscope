@@ -1,7 +1,6 @@
 module Extra exposing (onEnter)
 
-import Main.Messages exposing (Msg)
-import Html exposing (Html, Attribute)
+import Html exposing (Attribute)
 import Html.Events exposing (keyCode, on)
 import Json.Decode
 

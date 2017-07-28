@@ -8,8 +8,8 @@ module Main.Types
         , PersonId
         )
 
-import Date exposing (Date)
 import Video.Model as Video
+import Header.Model as Header
 
 
 type alias PersonId =
@@ -17,7 +17,7 @@ type alias PersonId =
 
 
 type alias Model =
-    { date : Maybe Date
+    { date : Header.Model
     , uid : Int
     , inspirationalVideo : Video.Model
     , announcements : List Announcement

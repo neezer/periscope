@@ -8,30 +8,18 @@ import Video.View
 import Announcements.View
 import Attendees.View
 import Header.View
-import Bem
-import Bem.Types
-
-
-block : Bem.Types.Block
-block =
-    Bem.makeBlock "wrapper"
-
-
-endStandupBlock : Bem.Types.Block
-endStandupBlock =
-    Bem.makeBlock "end-stand-up"
 
 
 root : Model -> Html Msg
 root model =
-    div [ class block ]
+    div [ class "wrapper" ]
         [ Header.View.root model.date
         , Html.map VideoMsg <| Video.View.root model.inspirationalVideo
         , Announcements.View.root model.announcements
         , Attendees.View.root model.attendees
-        , div [ class endStandupBlock ]
+        , div [ class "end-stand-up" ]
             [ button
-                [ class <| Bem.makeElement endStandupBlock "button" ]
+                [ class "end-stand-up__button" ]
                 [ text "Conclude Stand-up!" ]
             ]
         ]

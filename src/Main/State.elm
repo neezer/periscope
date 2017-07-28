@@ -8,21 +8,24 @@ import Main.Types
         , Person
         , Question(..)
         )
-import Date exposing (Date)
 import Main.Messages exposing (Msg(..))
 import Video.Update
+import Header.Update
 import Video.Model as Video
-import Task
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        RequestDate ->
-            ( model, getCurrentDate )
+        HeaderMsg subMsg ->
+            let
+                ( newHeaderModel, cmd ) =
+                    Header.Update.update subMsg model.date
 
-        ReceiveDate date ->
-            ( { model | date = Just date }, Cmd.none )
+                newModel =
+                    { model | date = newHeaderModel }
+            in
+                ( newModel, Cmd.map HeaderMsg cmd )
 
         VideoMsg subMsg ->
             let
@@ -132,12 +135,7 @@ init =
             , uid = 0
             }
     in
-        ( initialModel, getCurrentDate )
-
-
-getCurrentDate : Cmd Msg
-getCurrentDate =
-    Task.perform ReceiveDate Date.now
+        ( initialModel, Cmd.map HeaderMsg Header.Update.getCurrentDate )
 
 
 evan : Person

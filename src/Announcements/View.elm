@@ -3,26 +3,14 @@ module Announcements.View exposing (root)
 import Html exposing (Html, h2, text, ul, li, div, button, textarea, span)
 import Html.Attributes exposing (class, id)
 import Html.Events exposing (onClick, onInput)
-import Bem
-import Bem.Types
 import Main.Types exposing (Announcement)
 import Main.Messages exposing (Msg(..))
 import Extra exposing (onEnter)
 
 
-block : Bem.Types.Block
-block =
-    Bem.makeBlock "announcements"
-
-
-makeElement : String -> Bem.Types.Element
-makeElement =
-    Bem.makeElement block
-
-
 root : List Announcement -> Html Msg
 root announcements =
-    div [ class block ]
+    div [ class "announcements" ]
         [ header announcements
         , renderAnnouncements announcements
         ]
@@ -31,15 +19,15 @@ root announcements =
 header : List Announcement -> Html Msg
 header announcements =
     if List.isEmpty announcements then
-        div [ class <| makeElement "make-new-wrapper" ]
+        div [ class "announcements__make-new-wrapper" ]
             [ h2
-                [ class <| makeElement "make-new-title" ]
+                [ class "announcements__make-new-title" ]
                 [ text "No announcements" ]
             , addButton <| List.isEmpty announcements
             ]
     else
         h2
-            [ class <| makeElement "header" ]
+            [ class "announcements__header" ]
             [ text "Announcements" ]
 
 
@@ -53,7 +41,7 @@ addButton noAnnouncements =
                 "add another"
     in
         button
-            [ class <| makeElement "button"
+            [ class "announcements__button"
             , onClick AddAnnouncement
             ]
             [ text buttonText ]
@@ -79,7 +67,7 @@ renderAnnouncements announcements =
         else
             div []
                 [ ul
-                    [ class <| makeElement "announcement-list" ]
+                    [ class "announcements__announcement-list" ]
                   <|
                     List.map renderAnnouncement announcements
                 , nextButton
@@ -89,7 +77,7 @@ renderAnnouncements announcements =
 doneButton : Html Msg
 doneButton =
     button
-        [ class <| makeElement "button"
+        [ class "announcements__button"
         , onClick FinishEditingAnnouncement
         ]
         [ text "done" ]
@@ -98,7 +86,7 @@ doneButton =
 renderAnnouncement : Announcement -> Html Msg
 renderAnnouncement announcement =
     li
-        [ class <| makeElement "announcement-wrapper" ]
+        [ class "announcements__announcement-wrapper" ]
         [ showAnnouncement announcement ]
 
 
@@ -110,7 +98,7 @@ showAnnouncement announcement =
     in
         if announcement.editing then
             textarea
-                [ class <| makeElement "announcement-input"
+                [ class "announcements__announcement-input"
                 , onInput <| UpdateAnnouncement announcement.id
                 , onEnter FinishEditingAnnouncement
                 , id <| announcementId

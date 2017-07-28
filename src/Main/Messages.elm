@@ -1,14 +1,13 @@
 module Main.Messages exposing (Msg(..))
 
-import Date exposing (Date)
 import Video.Messages
+import Header.Messages
 import Main.Types
 
 
 type Msg
     = NoOp
-    | RequestDate
-    | ReceiveDate Date
+    | HeaderMsg Header.Messages.Msg
     | VideoMsg Video.Messages.Msg
     | AddAnnouncement
     | FinishEditingAnnouncement

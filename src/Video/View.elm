@@ -13,8 +13,6 @@ import Html
         , input
         , button
         )
-import Bem
-import Bem.Types
 import Html.Events exposing (onInput, onClick)
 import Html.Attributes
     exposing
@@ -30,20 +28,9 @@ import Extra exposing (onEnter)
 import Json.Encode
 
 
-block : Bem.Types.Block
-block =
-    Bem.makeBlock
-        "youtube-inspiration"
-
-
-makeElement : String -> Bem.Types.Element
-makeElement =
-    Bem.makeElement block
-
-
 root : Video.Model -> Html Msg
 root video =
-    div [ class block ]
+    div [ class "youtube-inspiration" ]
         [ player video
         , urlInput video.id
         ]
@@ -75,21 +62,21 @@ player video =
 
 urlInput : Maybe Video.YouTubeVideoId -> Html Msg
 urlInput youTubeVideoId =
-    div [ class <| makeElement "url-input-wrapper" ]
+    div [ class "youtube-inspiration__url-input-wrapper" ]
         [ span
-            [ class <| makeElement "url-input-label" ]
+            [ class "youtube-inspiration__url-input-label" ]
             [ text "YouTube Video ID:" ]
         , input
             [ placeholder "Enter a YouTube video ID and hit <Enter>"
             , onInput Video.Messages.Update
             , onEnter Video.Messages.Load
-            , class <| makeElement "url-input"
+            , class "youtube-inspiration__url-input"
             , value <| getYouTubeVideoId youTubeVideoId
             ]
             []
         , button
             [ onClick Video.Messages.Clear
-            , class <| makeElement "url-input-clear"
+            , class "youtube-inspiration__url-input-clear"
             ]
             [ text "clear" ]
         ]

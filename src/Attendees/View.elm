@@ -19,25 +19,11 @@ import Html.Attributes exposing (class, classList, placeholder, src)
 import Html.Events exposing (onInput)
 import Main.Types exposing (Attendee, Question(..))
 import Main.Messages exposing (Msg(..))
-import Bem
-import Bem.Types
-import Bem.Common
-
-
-block : Bem.Types.Block
-block =
-    Bem.makeBlock
-        "attendees"
-
-
-makeElement : String -> Bem.Types.Element
-makeElement =
-    Bem.makeElement block
 
 
 root : List Attendee -> Html Msg
 root attendees =
-    div [ class block ]
+    div [ class "attendees" ]
         [ header
         , renderAttendees attendees
         ]
@@ -45,10 +31,10 @@ root attendees =
 
 header : Html Msg
 header =
-    div [ class <| makeElement "header" ]
-        [ h2 [ class <| makeElement "title" ] [ text "Attendees" ]
+    div [ class "attendees__header" ]
+        [ h2 [ class "attendees__title" ] [ text "Attendees" ]
         , input
-            [ class <| makeElement "add-attendee-input"
+            [ class "attendees__add-attendee-input"
             , placeholder "Add attendee"
             ]
             []
@@ -61,7 +47,7 @@ renderAttendees attendees =
         text ""
     else
         ul
-            [ class <| makeElement "list" ]
+            [ class "attendees__list" ]
         <|
             List.map renderAttendee attendees
 
@@ -70,34 +56,34 @@ renderAttendee : Attendee -> Html Msg
 renderAttendee attendee =
     li
         [ classList
-            [ ( makeElement "attendee-wrapper", True )
-            , ( Bem.Common.media, True )
+            [ ( "attendees__attendee-wrapper", True )
+            , ( "media", True )
             ]
         ]
         [ div
             [ classList
-                [ ( Bem.Common.media, True )
-                , ( Bem.Common.mediaFigure, True )
-                , ( makeElement "attendee-info", True )
+                [ ( "media", True )
+                , ( "media__figure", True )
+                , ( "attendees__attendee-info", True )
                 ]
             ]
             [ img
                 [ classList
-                    [ ( makeElement "avatar", True )
-                    , ( Bem.Common.mediaFigure, True )
+                    [ ( "attendees__avatar", True )
+                    , ( "media__figure", True )
                     ]
                 , src attendee.person.avatarUrl
                 ]
                 []
-            , div [ class Bem.Common.mediaBody ]
-                [ h3 [ class <| makeElement "name" ] [ text attendee.person.name ]
+            , div [ class "media__body" ]
+                [ h3 [ class "attendees__name" ] [ text attendee.person.name ]
                 , gitHubUsername attendee.person.gitHubUsername
                 ]
             ]
         , div
             [ classList
-                [ ( Bem.Common.mediaBody, True )
-                , ( makeElement "questions", True )
+                [ ( "media__body", True )
+                , ( "attendees__questions", True )
                 ]
             ]
             [ questionAnswer WhatDidIDoYesterday attendee
@@ -111,7 +97,7 @@ renderAttendee attendee =
 gitHubUsername : String -> Html Msg
 gitHubUsername username =
     span
-        [ class <| makeElement "github-username" ]
+        [ class "attendees__github-username" ]
         [ text <| "@" ++ username ]
 
 
@@ -119,7 +105,7 @@ questionAnswer : Question -> Attendee -> Html Msg
 questionAnswer question attendee =
     let
         element =
-            makeElement "question-answer"
+            "attendees__question-answer"
 
         ( modifier, title ) =
             getQuestionDetails element question
@@ -131,35 +117,35 @@ questionAnswer question attendee =
                 ]
             ]
             [ h4
-                [ class <| makeElement "question-title" ]
+                [ class "attendees__question-title" ]
                 [ text title ]
             , textarea
-                [ class <| makeElement "question-input"
+                [ class "attendees__question-input"
                 , onInput <| UpdateQuestion question attendee.person.id
                 ]
                 []
             ]
 
 
-getQuestionDetails : Bem.Types.Element -> Question -> ( Bem.Types.Modifier, String )
+getQuestionDetails : String -> Question -> ( String, String )
 getQuestionDetails element question =
     case question of
         WhatDidIDoYesterday ->
-            ( Bem.makeModifier element "did-yesterday"
+            ( element ++ "--did-yesterday"
             , "What did I do yesterday?"
             )
 
         WhatWillIDoToday ->
-            ( Bem.makeModifier element "will-do-today"
+            ( element ++ "--will-do-today"
             , "What will I do today?"
             )
 
         WhatIsBlockingMe ->
-            ( Bem.makeModifier element "blocking-me"
+            ( element ++ "--blocking-me"
             , "What is blocking me?"
             )
 
         CanIConnectWith ->
-            ( Bem.makeModifier element "connect-with"
+            ( element ++ "--connect-with"
             , "Who do I want to connect with?"
             )
