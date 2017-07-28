@@ -1,7 +1,15 @@
 module Main.View exposing (root)
 
 import Main.Types exposing (Model)
-import Main.Messages exposing (Msg(HeaderMsg, VideoMsg, AnnouncementsMsg))
+import Main.Messages
+    exposing
+        ( Msg
+            ( HeaderMsg
+            , VideoMsg
+            , AnnouncementsMsg
+            , AttendeesMsg
+            )
+        )
 import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (class)
 import Video.View
@@ -16,7 +24,7 @@ root model =
         [ Html.map HeaderMsg <| Header.View.root model.date
         , Html.map VideoMsg <| Video.View.root model.inspirationalVideo
         , Html.map AnnouncementsMsg <| Announcements.View.root model.announcements
-        , Attendees.View.root model.attendees
+        , Html.map AttendeesMsg <| Attendees.View.root model.attendees
         , div [ class "end-stand-up" ]
             [ button
                 [ class "end-stand-up__button" ]

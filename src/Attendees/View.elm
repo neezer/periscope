@@ -1,24 +1,10 @@
 module Attendees.View exposing (root)
 
-import Html
-    exposing
-        ( Html
-        , div
-        , input
-        , text
-        , h2
-        , h3
-        , h4
-        , ul
-        , li
-        , img
-        , textarea
-        , span
-        )
+import Html exposing (..)
 import Html.Attributes exposing (class, classList, placeholder, src)
 import Html.Events exposing (onInput)
-import Main.Types exposing (Attendee, Question(..))
-import Main.Messages exposing (Msg(..))
+import Attendees.Model exposing (Attendee)
+import Attendees.Messages exposing (Msg(..), Question(..))
 
 
 root : List Attendee -> Html Msg
@@ -121,7 +107,7 @@ questionAnswer question attendee =
                 [ text title ]
             , textarea
                 [ class "attendees__question-input"
-                , onInput <| UpdateQuestion question attendee.person.id
+                , onInput <| Update attendee.person.id question
                 ]
                 []
             ]

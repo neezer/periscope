@@ -1,17 +1,13 @@
 module Main.State exposing (update, init)
 
-import Main.Types
-    exposing
-        ( Model
-        , Attendee
-        , Person
-        , Question(..)
-        )
+import Main.Types exposing (Model)
 import Main.Messages exposing (Msg(..))
 import Video.Update
 import Header.Update
+import Announcements.Update
+import Attendees.Update
 import Video.Model as Video
-import List
+import Attendees.Model as Attendees
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -37,32 +33,25 @@ update msg model =
             in
                 ( newModel, Cmd.map VideoMsg cmd )
 
-        UpdateQuestion question personId text ->
+        AnnouncementsMsg subMsg ->
             let
-                updateAttendee attendee =
-                    if attendee.person.id == personId then
-                        case question of
-                            WhatDidIDoYesterday ->
-                                { attendee | didYesterday = text }
+                ( newAnnouncements, cmd ) =
+                    Announcements.Update.update subMsg model.announcements
 
-                            WhatWillIDoToday ->
-                                { attendee | willDoToday = text }
+                newModel =
+                    { model | announcements = newAnnouncements }
+            in
+                ( newModel, Cmd.map AnnouncementsMsg cmd )
 
-                            WhatIsBlockingMe ->
-                                { attendee | blockers = text }
-
-                            CanIConnectWith ->
-                                { attendee | connects = text }
-                    else
-                        attendee
-
-                newAttendees =
-                    List.map updateAttendee model.attendees
+        AttendeesMsg subMsg ->
+            let
+                ( newAttendees, cmd ) =
+                    Attendees.Update.update subMsg model.attendees
 
                 newModel =
                     { model | attendees = newAttendees }
             in
-                ( newModel, Cmd.none )
+                ( newModel, Cmd.map AttendeesMsg cmd )
 
         _ ->
             ( model, Cmd.none )
@@ -76,12 +65,12 @@ init =
             , inspirationalVideo = Video.Model Nothing False
             , announcements = []
             , attendees =
-                [ Attendee evan "" "" "" ""
-                , Attendee bogdan "" "" "" ""
-                , Attendee tim "" "" "" ""
-                , Attendee joey "" "" "" ""
-                , Attendee blair "" "" "" ""
-                , Attendee roksolana "" "" "" ""
+                [ Attendees.Attendee evan "" "" "" ""
+                , Attendees.Attendee bogdan "" "" "" ""
+                , Attendees.Attendee tim "" "" "" ""
+                , Attendees.Attendee joey "" "" "" ""
+                , Attendees.Attendee blair "" "" "" ""
+                , Attendees.Attendee roksolana "" "" "" ""
                 ]
             , uid = 0
             }
@@ -89,31 +78,31 @@ init =
         ( initialModel, Cmd.map HeaderMsg Header.Update.getCurrentDate )
 
 
-evan : Person
+evan : Attendees.Person
 evan =
-    Person 1 "Evan" "Team Lead" "neezer" "https://avatars6.githubusercontent.com/u/29997?v=4&s=460"
+    Attendees.Person 1 "Evan" "Team Lead" "neezer" "https://avatars6.githubusercontent.com/u/29997?v=4&s=460"
 
 
-tim : Person
+tim : Attendees.Person
 tim =
-    Person 2 "Tim" "Developer" "beardedtim" "https://avatars7.githubusercontent.com/u/8563579?v=4&s=460"
+    Attendees.Person 2 "Tim" "Developer" "beardedtim" "https://avatars7.githubusercontent.com/u/8563579?v=4&s=460"
 
 
-joey : Person
+joey : Attendees.Person
 joey =
-    Person 3 "Joey" "Developer" "jgbenito7" "https://avatars5.githubusercontent.com/u/6375353?v=4&s=460"
+    Attendees.Person 3 "Joey" "Developer" "jgbenito7" "https://avatars5.githubusercontent.com/u/6375353?v=4&s=460"
 
 
-blair : Person
+blair : Attendees.Person
 blair =
-    Person 4 "Blair" "Developer" "zhaolwu" "https://avatars5.githubusercontent.com/u/29712873?v=4&s=460"
+    Attendees.Person 4 "Blair" "Developer" "zhaolwu" "https://avatars5.githubusercontent.com/u/29712873?v=4&s=460"
 
 
-bogdan : Person
+bogdan : Attendees.Person
 bogdan =
-    Person 5 "Bogdan" "Developer" "blobor" "https://avatars7.githubusercontent.com/u/4813007?v=4&s=460"
+    Attendees.Person 5 "Bogdan" "Developer" "blobor" "https://avatars7.githubusercontent.com/u/4813007?v=4&s=460"
 
 
-roksolana : Person
+roksolana : Attendees.Person
 roksolana =
-    Person 6 "Roksolana" "Developer" "lianapache" "https://avatars4.githubusercontent.com/u/12541467?v=4&s=460"
+    Attendees.Person 6 "Roksolana" "Developer" "lianapache" "https://avatars4.githubusercontent.com/u/12541467?v=4&s=460"
