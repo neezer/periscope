@@ -3,16 +3,16 @@ module Announcements.View exposing (root)
 import Html exposing (Html, h2, text, ul, li, div, button, textarea, span)
 import Html.Attributes exposing (class, id)
 import Html.Events exposing (onClick, onInput)
-import Announcements.Model exposing (Announcement)
+import Announcements.Model exposing (Model, Announcement)
 import Announcements.Messages exposing (Msg(..))
 import Extra exposing (onEnter)
 
 
-root : List Announcement -> Html Msg
-root announcements =
+root : Model -> Html Msg
+root model =
     div [ class "announcements" ]
-        [ header announcements
-        , renderAnnouncements announcements
+        [ header model.records
+        , renderAnnouncements model.records
         ]
 
 

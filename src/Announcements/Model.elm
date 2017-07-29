@@ -1,4 +1,10 @@
-module Announcements.Model exposing (Announcement)
+module Announcements.Model exposing (Model, Announcement)
+
+
+type alias Model =
+    { uid : Int
+    , records : List Announcement
+    }
 
 
 type alias Announcement =

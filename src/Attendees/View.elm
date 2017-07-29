@@ -1,17 +1,17 @@
 module Attendees.View exposing (root)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, classList, placeholder, src)
+import Html.Attributes exposing (class, placeholder, src)
 import Html.Events exposing (onInput)
-import Attendees.Model exposing (Attendee)
+import Attendees.Model exposing (Model, Attendee)
 import Attendees.Messages exposing (Msg(..), Question(..))
 
 
-root : List Attendee -> Html Msg
-root attendees =
+root : Model -> Html Msg
+root model =
     div [ class "attendees" ]
         [ header
-        , renderAttendees attendees
+        , renderAttendees model.records
         ]
 
 
@@ -32,32 +32,17 @@ renderAttendees attendees =
     if List.isEmpty attendees then
         text ""
     else
-        ul
-            [ class "attendees__list" ]
-        <|
-            List.map renderAttendee attendees
+        ul [ class "attendees__list" ] <| List.map renderAttendee attendees
 
 
 renderAttendee : Attendee -> Html Msg
 renderAttendee attendee =
     li
-        [ classList
-            [ ( "attendees__attendee-wrapper", True )
-            , ( "media", True )
-            ]
-        ]
+        [ class "attendees__attendee-wrapper media" ]
         [ div
-            [ classList
-                [ ( "media", True )
-                , ( "media__figure", True )
-                , ( "attendees__attendee-info", True )
-                ]
-            ]
+            [ class "attendees__attendee-info media media__figure" ]
             [ img
-                [ classList
-                    [ ( "attendees__avatar", True )
-                    , ( "media__figure", True )
-                    ]
+                [ class "attendees__avatar media__figure"
                 , src attendee.person.avatarUrl
                 ]
                 []
@@ -67,11 +52,7 @@ renderAttendee attendee =
                 ]
             ]
         , div
-            [ classList
-                [ ( "media__body", True )
-                , ( "attendees__questions", True )
-                ]
-            ]
+            [ class "attendees__questions media__body" ]
             [ questionAnswer WhatDidIDoYesterday attendee
             , questionAnswer WhatWillIDoToday attendee
             , questionAnswer WhatIsBlockingMe attendee
@@ -97,11 +78,7 @@ questionAnswer question attendee =
             getQuestionDetails element question
     in
         div
-            [ classList
-                [ ( element, True )
-                , ( modifier, True )
-                ]
-            ]
+            [ class <| element ++ " " ++ modifier ]
             [ h4
                 [ class "attendees__question-title" ]
                 [ text title ]

@@ -25,3 +25,8 @@ type alias Attendee =
     , blockers : Answer
     , connects : Answer
     }
+
+
+type alias Model =
+    { records : List Attendee
+    }

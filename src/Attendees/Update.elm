@@ -1,11 +1,11 @@
 module Attendees.Update exposing (update)
 
-import Attendees.Model exposing (Attendee)
+import Attendees.Model exposing (Model)
 import Attendees.Messages exposing (Msg(..), Question(..))
 
 
-update : Msg -> List Attendee -> ( List Attendee, Cmd Msg )
-update msg attendees =
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
     case msg of
         Update personId question answer ->
             let
@@ -25,8 +25,14 @@ update msg attendees =
                                 { attendee | connects = answer }
                     else
                         attendee
+
+                newRecords =
+                    List.map updateAttendee model.records
+
+                newModel =
+                    { model | records = newRecords }
             in
-                ( List.map updateAttendee attendees, Cmd.none )
+                ( newModel, Cmd.none )
 
         _ ->
-            ( attendees, Cmd.none )
+            ( model, Cmd.none )

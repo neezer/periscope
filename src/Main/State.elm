@@ -8,6 +8,7 @@ import Announcements.Update
 import Attendees.Update
 import Video.Model as Video
 import Attendees.Model as Attendees
+import Announcements.Model as Announcements
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -63,16 +64,16 @@ init =
         initialModel =
             { date = Nothing
             , inspirationalVideo = Video.Model Nothing False
-            , announcements = []
+            , announcements = Announcements.Model 0 []
             , attendees =
-                [ Attendees.Attendee evan "" "" "" ""
-                , Attendees.Attendee bogdan "" "" "" ""
-                , Attendees.Attendee tim "" "" "" ""
-                , Attendees.Attendee joey "" "" "" ""
-                , Attendees.Attendee blair "" "" "" ""
-                , Attendees.Attendee roksolana "" "" "" ""
-                ]
-            , uid = 0
+                Attendees.Model
+                    [ Attendees.Attendee evan "" "" "" ""
+                    , Attendees.Attendee bogdan "" "" "" ""
+                    , Attendees.Attendee tim "" "" "" ""
+                    , Attendees.Attendee joey "" "" "" ""
+                    , Attendees.Attendee blair "" "" "" ""
+                    , Attendees.Attendee roksolana "" "" "" ""
+                    ]
             }
     in
         ( initialModel, Cmd.map HeaderMsg Header.Update.getCurrentDate )
