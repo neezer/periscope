@@ -3,6 +3,6 @@ module Announcements.Messages exposing (Msg(..))
 
 type Msg
     = NoOp
-    | Add
-    | FinishEditing
+    | Edit (Maybe Int)
+    | Finish
     | Update Int String

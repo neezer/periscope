@@ -1,14 +1,25 @@
-module Announcements.Model exposing (Model, Announcement)
+module Announcements.Model
+    exposing
+        ( Model
+        , Announcement
+        , AnnouncementsView(..)
+        )
 
 
 type alias Model =
     { uid : Int
     , records : List Announcement
+    , view : AnnouncementsView
     }
 
 
 type alias Announcement =
     { id : Int
     , text : String
-    , editing : Bool
     }
+
+
+type AnnouncementsView
+    = None
+    | List
+    | Editing Announcement

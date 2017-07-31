@@ -64,7 +64,10 @@ init =
         initialModel =
             { date = Nothing
             , inspirationalVideo = Video.Model Nothing False
-            , announcements = Announcements.Model 0 []
+            , announcements =
+                Announcements.Model 0
+                    [ Announcements.Announcement 5 "testing" ]
+                    Announcements.List
             , attendees =
                 Attendees.Model
                     [ Attendees.Attendee evan "" "" "" ""
