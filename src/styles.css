@@ -136,6 +136,7 @@
   background-color: #f8e187;
   border-left: 10px solid #f39c12;
   line-height: 20px;
+  cursor: pointer;
 }
 
   .announcements__announcement-button

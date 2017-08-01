@@ -2,6 +2,8 @@ module Announcements.Update exposing (update)
 
 import Announcements.Messages exposing (Msg(..))
 import Announcements.Model exposing (Model, Announcement, AnnouncementsView)
+import Dom
+import Task
 
 
 findRecordBy : (a -> Bool) -> List a -> Maybe a
@@ -21,13 +23,16 @@ update msg model =
 
                         focusedRecord =
                             findRecordBy finder model.records
+
+                        focus fr =
+                            Dom.focus <| "announcement-" ++ toString fr.id
                     in
                         case focusedRecord of
                             Just fr ->
                                 ( { model
                                     | view = Announcements.Model.Editing fr
                                   }
-                                , Cmd.none
+                                , Task.attempt (\_ -> NoOp) (focus fr)
                                 )
 
                             Nothing ->

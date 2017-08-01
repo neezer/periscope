@@ -66,8 +66,8 @@ init =
             , inspirationalVideo = Video.Model Nothing False
             , announcements =
                 Announcements.Model 0
-                    [ Announcements.Announcement 5 "testing" ]
-                    Announcements.List
+                    []
+                    Announcements.None
             , attendees =
                 Attendees.Model
                     [ Attendees.Attendee evan "" "" "" ""
