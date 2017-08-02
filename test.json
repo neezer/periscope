@@ -28,8 +28,8 @@
       ],
       "connects": [
         {
-          "wantsToConnect": "1",
-          "connectWith": "4",
+          "thisAttendee": 1,
+          "wantsToConnectWith": [4],
           "about": ""
         }
       ],
