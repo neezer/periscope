@@ -1,4 +1,4 @@
-module Main.Types exposing (Model)
+module Main.Model exposing (Model)
 
 import Video.Model as Video
 import Header.Model as Header

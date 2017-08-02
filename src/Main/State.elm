@@ -1,6 +1,6 @@
 module Main.State exposing (update, init)
 
-import Main.Types exposing (Model)
+import Main.Model exposing (Model)
 import Main.Messages exposing (Msg(..))
 import Video.Update
 import Header.Update

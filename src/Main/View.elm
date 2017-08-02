@@ -1,15 +1,7 @@
 module Main.View exposing (root)
 
-import Main.Types exposing (Model)
-import Main.Messages
-    exposing
-        ( Msg
-            ( HeaderMsg
-            , VideoMsg
-            , AnnouncementsMsg
-            , AttendeesMsg
-            )
-        )
+import Main.Model exposing (Model)
+import Main.Messages exposing (Msg(..))
 import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (class)
 import Video.View

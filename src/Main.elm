@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Main.Types exposing (Model)
+import Main.Model exposing (Model)
 import Main.Messages exposing (Msg)
 import Main.View
 import Main.State
