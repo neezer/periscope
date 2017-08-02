@@ -3,15 +3,15 @@ module Main exposing (..)
 import Main.Model exposing (Model)
 import Main.Messages exposing (Msg)
 import Main.View
-import Main.State
+import Main.Update
 import Html exposing (Html)
 
 
 main : Program Never Model Msg
 main =
     Html.program
-        { init = Main.State.init
+        { init = Main.Update.init
         , view = Main.View.root
-        , update = Main.State.update
+        , update = Main.Update.update
         , subscriptions = always Sub.none
         }

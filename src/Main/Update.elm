@@ -1,4 +1,4 @@
-module Main.State exposing (update, init)
+module Main.Update exposing (update, init)
 
 import Main.Model exposing (Model)
 import Main.Messages exposing (Msg(..))
@@ -65,48 +65,34 @@ init =
             { date = Nothing
             , inspirationalVideo = Video.Model Nothing False
             , announcements =
-                Announcements.Model 0
-                    []
-                    Announcements.None
+                Announcements.Model 0 [] Announcements.None
             , attendees =
-                Attendees.Model
-                    [ Attendees.Attendee evan "" "" "" ""
-                    , Attendees.Attendee bogdan "" "" "" ""
-                    , Attendees.Attendee tim "" "" "" ""
-                    , Attendees.Attendee joey "" "" "" ""
-                    , Attendees.Attendee blair "" "" "" ""
-                    , Attendees.Attendee roksolana "" "" "" ""
-                    ]
+                Attendees.Model []
             }
     in
-        ( initialModel, Cmd.map HeaderMsg Header.Update.getCurrentDate )
+        ( initialModel
+        , Cmd.batch
+            [ Cmd.map HeaderMsg Header.Update.getCurrentDate
+            ]
+        )
 
 
-evan : Attendees.Person
-evan =
-    Attendees.Person 1 "Evan" "Team Lead" "neezer" "https://avatars6.githubusercontent.com/u/29997?v=4&s=460"
 
-
-tim : Attendees.Person
-tim =
-    Attendees.Person 2 "Tim" "Developer" "beardedtim" "https://avatars7.githubusercontent.com/u/8563579?v=4&s=460"
-
-
-joey : Attendees.Person
-joey =
-    Attendees.Person 3 "Joey" "Developer" "jgbenito7" "https://avatars5.githubusercontent.com/u/6375353?v=4&s=460"
-
-
-blair : Attendees.Person
-blair =
-    Attendees.Person 4 "Blair" "Developer" "zhaolwu" "https://avatars5.githubusercontent.com/u/29712873?v=4&s=460"
-
-
-bogdan : Attendees.Person
-bogdan =
-    Attendees.Person 5 "Bogdan" "Developer" "blobor" "https://avatars7.githubusercontent.com/u/4813007?v=4&s=460"
-
-
-roksolana : Attendees.Person
-roksolana =
-    Attendees.Person 6 "Roksolana" "Developer" "lianapache" "https://avatars4.githubusercontent.com/u/12541467?v=4&s=460"
+-- evan : Attendees.Person
+-- evan =
+--     Attendees.Person 1 "Evan" "Team Lead" "neezer" "https://avatars6.githubusercontent.com/u/29997?v=4&s=460"
+-- tim : Attendees.Person
+-- tim =
+--     Attendees.Person 2 "Tim" "Developer" "beardedtim" "https://avatars7.githubusercontent.com/u/8563579?v=4&s=460"
+-- joey : Attendees.Person
+-- joey =
+--     Attendees.Person 3 "Joey" "Developer" "jgbenito7" "https://avatars5.githubusercontent.com/u/6375353?v=4&s=460"
+-- blair : Attendees.Person
+-- blair =
+--     Attendees.Person 4 "Blair" "Developer" "zhaolwu" "https://avatars5.githubusercontent.com/u/29712873?v=4&s=460"
+-- bogdan : Attendees.Person
+-- bogdan =
+--     Attendees.Person 5 "Bogdan" "Developer" "blobor" "https://avatars7.githubusercontent.com/u/4813007?v=4&s=460"
+-- roksolana : Attendees.Person
+-- roksolana =
+--     Attendees.Person 6 "Roksolana" "Developer" "lianapache" "https://avatars4.githubusercontent.com/u/12541467?v=4&s=460"
